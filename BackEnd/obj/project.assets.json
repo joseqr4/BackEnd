@@ -12996,11 +12996,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\joc_q\\Documents\\TesisFacultad\\.git\\BackEnd\\Proyecto\\BackEnd\\BackEnd.csproj",
+      "projectUniqueName": "C:\\Users\\joc_q\\Documents\\TesisFacultad\\BackEnd\\BackEnd\\BackEnd.csproj",
       "projectName": "BackEnd",
-      "projectPath": "C:\\Users\\joc_q\\Documents\\TesisFacultad\\.git\\BackEnd\\Proyecto\\BackEnd\\BackEnd.csproj",
+      "projectPath": "C:\\Users\\joc_q\\Documents\\TesisFacultad\\BackEnd\\BackEnd\\BackEnd.csproj",
       "packagesPath": "C:\\Users\\joc_q\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\joc_q\\Documents\\TesisFacultad\\.git\\BackEnd\\Proyecto\\BackEnd\\obj\\",
+      "outputPath": "C:\\Users\\joc_q\\Documents\\TesisFacultad\\BackEnd\\BackEnd\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\ProgramData\\Xamarin\\NuGet\\",
