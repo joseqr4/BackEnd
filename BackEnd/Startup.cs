@@ -48,7 +48,8 @@ namespace BackEnd
                      ValidIssuer = "aprovechapp.com",
                      ValidAudience = "aprovechapp.com",
                      IssuerSigningKey = new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(Configuration["Llave_super_secreta"])),
+                    //Encoding.UTF8.GetBytes(Configuration["Llave_super_secreta"])),
+                    Encoding.UTF8.GetBytes("asdasdasdasdasdas")),
                      ClockSkew = TimeSpan.Zero
                  });
            
