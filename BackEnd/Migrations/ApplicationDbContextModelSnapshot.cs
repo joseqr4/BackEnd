@@ -29,14 +29,21 @@ namespace BackEnd.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<DateTime?>("Date_birth");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("Last_Name");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(120);
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -50,12 +57,17 @@ namespace BackEnd.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(Max)");
+
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<string>("password_confirmation");
 
                     b.HasKey("Id");
 
@@ -70,31 +82,305 @@ namespace BackEnd.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("BackEnd.Models.Comercios", b =>
+            modelBuilder.Entity("BackEnd.Models.BusinessModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Nombre")
-                        .HasMaxLength(30);
+                    b.Property<int?>("CategoriID");
+
+                    b.Property<string>("Descripcion");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(Max)");
+
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Comercios");
+                    b.HasIndex("CategoriID");
+
+                    b.ToTable("BusinessModels");
                 });
 
-            modelBuilder.Entity("BackEnd.Models.intereses", b =>
+            modelBuilder.Entity("BackEnd.Models.BussinessCommerce", b =>
                 {
-                    b.Property<int>("Codigo")
+                    b.Property<int>("Commerce");
+
+                    b.Property<int>("Bussines");
+
+                    b.HasKey("Commerce", "Bussines");
+
+                    b.ToTable("BussinessCommerce");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Nombre");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
-                    b.HasKey("Codigo");
+                    b.Property<string>("icon")
+                        .HasColumnType("nvarchar(Max)");
 
-                    b.ToTable("Intereses");
+                    b.HasKey("Id");
+
+                    b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.Commerce", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired();
+
+                    b.Property<string>("Alias")
+                        .IsRequired()
+                        .HasMaxLength(40);
+
+                    b.Property<double>("Latitude");
+
+                    b.Property<double>("Longitude");
+
+                    b.Property<int>("Phone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Commerce");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.CommerceDiscounts", b =>
+                {
+                    b.Property<int>("CommerceID");
+
+                    b.Property<int>("DiscountsID");
+
+                    b.HasKey("CommerceID", "DiscountsID");
+
+                    b.HasIndex("DiscountsID");
+
+                    b.ToTable("CommerceDiscounts");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.Company", b =>
+                {
+                    b.Property<long>("Rut");
+
+                    b.Property<bool>("Enable");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(Max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("email")
+                        .IsRequired();
+
+                    b.HasKey("Rut");
+
+                    b.ToTable("Company");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.CompanyModelBussines", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<long>("Rut");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Rut");
+
+                    b.ToTable("CompanyModelBussines");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.Discounts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date_end");
+
+                    b.Property<DateTime>("Date_start");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Discount_Type");
+
+                    b.Property<decimal>("Discount_value")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Discounts");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.DiscountsInterests", b =>
+                {
+                    b.Property<int>("DiscountsID");
+
+                    b.Property<int>("InterestsId");
+
+                    b.HasKey("DiscountsID", "InterestsId");
+
+                    b.HasIndex("InterestsId");
+
+                    b.ToTable("DiscountsInterests");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.Interests", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Interests");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.InterestsUsers", b =>
+                {
+                    b.Property<int>("InterestsId");
+
+                    b.Property<string>("IdUser");
+
+                    b.HasKey("InterestsId", "IdUser");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("InterestsUsers");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.QrCode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Consumed");
+
+                    b.Property<DateTime?>("DateConsumed");
+
+                    b.Property<DateTime>("DateCreate");
+
+                    b.Property<int>("IdCommerce");
+
+                    b.Property<int>("IdDiscount");
+
+                    b.Property<string>("IdUser");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(Max)");
+
+                    b.Property<DateTime>("TimeValidation");
+
+                    b.Property<bool>("Valued");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCommerce");
+
+                    b.HasIndex("IdDiscount");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("QrCode");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Article")
+                        .HasColumnType("decimal(2,1)");
+
+                    b.Property<decimal>("CommerceValued")
+                        .HasColumnType("decimal(2,1)");
+
+                    b.Property<DateTime>("DateValoration");
+
+                    b.Property<int>("IDCommerce");
+
+                    b.Property<int>("IdDiscount");
+
+                    b.Property<string>("IdUsers");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(2,1)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Review");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.UserCommerce", b =>
+                {
+                    b.Property<int>("CommerceID");
+
+                    b.Property<string>("IdUser");
+
+                    b.HasKey("CommerceID", "IdUser");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("UserCommerce");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.UserDiscountConsumed", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CommerceId");
+
+                    b.Property<DateTime?>("DateConsumed");
+
+                    b.Property<int>("DiscountID");
+
+                    b.Property<string>("UserNameID");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommerceId");
+
+                    b.HasIndex("DiscountID");
+
+                    b.HasIndex("UserNameID");
+
+                    b.ToTable("UserDiscountConsumed");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.UsersCompany", b =>
+                {
+                    b.Property<string>("IdUser");
+
+                    b.Property<bool>("Enable");
+
+                    b.Property<long>("idCompany");
+
+                    b.HasKey("IdUser");
+
+                    b.HasIndex("idCompany");
+
+                    b.ToTable("UsersCompany");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -205,6 +491,125 @@ namespace BackEnd.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.BusinessModel", b =>
+                {
+                    b.HasOne("BackEnd.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoriID");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.CommerceDiscounts", b =>
+                {
+                    b.HasOne("BackEnd.Models.Commerce", "Commerce")
+                        .WithMany()
+                        .HasForeignKey("CommerceID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BackEnd.Models.Discounts", "Discounts")
+                        .WithMany()
+                        .HasForeignKey("DiscountsID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BackEnd.Models.CompanyModelBussines", b =>
+                {
+                    b.HasOne("BackEnd.Models.BusinessModel", "IdB")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BackEnd.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("Rut")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BackEnd.Models.DiscountsInterests", b =>
+                {
+                    b.HasOne("BackEnd.Models.Discounts", "Discounts")
+                        .WithMany()
+                        .HasForeignKey("DiscountsID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BackEnd.Models.Interests", "INteres")
+                        .WithMany()
+                        .HasForeignKey("InterestsId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BackEnd.Models.InterestsUsers", b =>
+                {
+                    b.HasOne("BackEnd.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BackEnd.Models.Interests", "Interests")
+                        .WithMany()
+                        .HasForeignKey("InterestsId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BackEnd.Models.QrCode", b =>
+                {
+                    b.HasOne("BackEnd.Models.Commerce", "Commerce")
+                        .WithMany()
+                        .HasForeignKey("IdCommerce")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BackEnd.Models.Discounts", "Discounts")
+                        .WithMany()
+                        .HasForeignKey("IdDiscount")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BackEnd.Models.ApplicationUser", "Email")
+                        .WithMany()
+                        .HasForeignKey("IdUser");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.UserCommerce", b =>
+                {
+                    b.HasOne("BackEnd.Models.Commerce", "Commerce")
+                        .WithMany()
+                        .HasForeignKey("CommerceID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BackEnd.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BackEnd.Models.UserDiscountConsumed", b =>
+                {
+                    b.HasOne("BackEnd.Models.Commerce", "Commerce")
+                        .WithMany()
+                        .HasForeignKey("CommerceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BackEnd.Models.Discounts", "Discount")
+                        .WithMany()
+                        .HasForeignKey("DiscountID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BackEnd.Models.ApplicationUser", "UserName")
+                        .WithMany()
+                        .HasForeignKey("UserNameID");
+                });
+
+            modelBuilder.Entity("BackEnd.Models.UsersCompany", b =>
+                {
+                    b.HasOne("BackEnd.Models.ApplicationUser", "Email")
+                        .WithMany()
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BackEnd.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("idCompany")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

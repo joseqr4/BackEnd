@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BackEnd</name>
+    </assembly>
+    <members>
+        <member name="M:BackEnd.Controllers.AccountController.Login(BackEnd.Models.UserInfo)">
+            <summary>
+            Para logearse con el usuario.
+            </summary>
+            <param name="userInfo"></param>
+            <returns>Retorna el Token del usuario en el Header</returns>
+        </member>
+    </members>
+</doc>

@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/Comercios",
+      "launchUrl": "api/Commerce",
       "environmentVariables": {
         "Llave_super_secreta": "DFASDJLASKDGOSKDFWEINJNRO32IN45N34J5NKVLFM394",
         "ASPNETCORE_ENVIRONMENT": "Development"

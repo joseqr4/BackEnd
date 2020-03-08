@@ -7,18 +7,23 @@ using System.Threading.Tasks;
 
 namespace BackEnd.Models
 {
-    public class UserInfo
+    public class UserInfo: IdentityUser
     {
         [PersonalData]
-        public string Nombre { get; set; }
+       
+        public string Name { get; set; }
         [PersonalData]
-        public string Apellido { get; set; }
-
-        [Key]
-        public string Email { get; set; }
+      
+        public string Last_name { get; set; }
+     
 
         [StringLength(30, MinimumLength = 5)]
         public string Password { get; set; }
+
+        [StringLength(30, MinimumLength = 5)]
+        public string Password_Confirmation { get; set; }
+
+        
 
 
     }
